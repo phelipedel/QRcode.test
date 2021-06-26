@@ -29,8 +29,8 @@ url.png ( f'{nome}.png' , scale = 6 )
 print ( f'{cor.verde}QRcode .png gerado com sucesso. ' )
 sleep ( 0.1 )
 
-r = str ( input ( 'Quer adicionar uma imagem ? [S/N]' ) ).upper ( ) [ 0 ]
-if r == 'S' :
+r = messagebox.askyesno(title='Adiconar logo?', message='Quer adicioanr um logo ao seu codigo QR?')
+if r == True :
     print ( f'{cor.vermelho}Selecione o codigo QR.' )
     origem = filedialog.askopenfilename ( )  # seletor codigo qr
     im = Image.open ( f'{origem}' )
