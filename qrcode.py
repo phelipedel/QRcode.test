@@ -5,7 +5,10 @@ from lib.utilidade import cor
 from time import sleep
 import os
 import shutil
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
+from pathlib import Path
+from errno import *
+
 from PIL import Image  # PIP INSTALL PILLOW
 
 # nomeando arquivo
@@ -20,14 +23,33 @@ sleep ( 0.5 )
 print ( f'{cor.amarelo}Gerando {nome} QRcode' )
 sleep ( 0.5 )
 
-# criando e salvando arquivo svg
+
+#criando pasta por cada codigo gerado
+while True:
+    folder = input('Nome da pasta: ')
+    try:
+        directory = folder
+        parent_dir = 'save_qr_code'
+        path = os.path.join ( parent_dir , directory )
+        os.mkdir ( path )
+    except (FileExistsError ,) :
+        directory = os.path.exists ( 'save_qr_code' )
+        print ( f'{cor.vermelho}Erro! Diretorio ja existe,  tente novamente.  ' )
+    else :
+
+        print ( f'{cor.amarelo}Gerando pasta...' )
+        break
+
+# criando e salvando arquivo QR
 
 url.svg ( f'{nome}.svg' , scale = 8 )
 print ( f'{cor.verde}QRcode .svg gerado com sucesso. ' )
-sleep ( 0.1 )
+sleep ( 1 )
+
 url.png ( f'{nome}.png' , scale = 6 )
 print ( f'{cor.verde}QRcode .png gerado com sucesso. ' )
-sleep ( 0.1 )
+sleep ( 1 )
+
 
 r = messagebox.askyesno(title='Adiconar logo?', message='Quer adicioanr um logo ao seu codigo QR?')
 if r == True :
@@ -47,3 +69,14 @@ if r == True :
     logo = logo.resize ( (xmax - xmin , ymax - ymin) )
     im.paste ( logo , (xmin , ymin , xmax , ymax) )
     im.show ( )
+
+print(f'{cor.vermelho}Aguarda mais um minuto...\n Finalizando')
+sleep(0.8)
+
+source = f'{nome}.svg'
+destination = f'save_qr_code\{folder}'
+shutil.move(source,destination)
+
+source = f'{nome}.png'
+destination = f'save_qr_code\{folder}'
+shutil.move(source,destination)
