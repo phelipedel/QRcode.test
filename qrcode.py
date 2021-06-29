@@ -7,7 +7,7 @@ import os
 import shutil
 from tkinter import filedialog, messagebox
 from pathlib import Path
-from errno import *
+
 
 from PIL import Image  # PIP INSTALL PILLOW
 
@@ -32,7 +32,7 @@ while True:
         parent_dir = 'save_qr_code'
         path = os.path.join ( parent_dir , directory )
         os.mkdir ( path )
-    except (FileExistsError ,) :
+    except (FileExistsError) :
         directory = os.path.exists ( 'save_qr_code' )
         print ( f'{cor.vermelho}Erro! Diretorio ja existe,  tente novamente.  ' )
     else :
