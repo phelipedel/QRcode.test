@@ -1,7 +1,7 @@
 import pyqrcode
-import png
+import png # install pypng
 from pyqrcode import QRCode
-from lib.utilidade import cor
+from Lib.utilidade import cor
 from time import sleep
 import os
 import shutil
